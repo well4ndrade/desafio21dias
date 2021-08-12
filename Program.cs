@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace console_desafio21dias_api
 {
@@ -6,68 +7,66 @@ namespace console_desafio21dias_api
     {
         static void Main(string[] args)
         {
-            //LOOPS:
-
-            //Daniel é um agricultor e precisa de um programa que ao digitar número inicial e final, 
-            //o programa mostra repetidamente todos os números na tela.
-            /*
-            Console.WriteLine("Digite o número inicial:");
-            var numeroInicial = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Digite o número final:");
-            int numeroFinal = Convert.ToInt32(Console.ReadLine());
-
-            for(int i = numeroInicial; i <= numeroFinal; i++)
-            {
-                Console.WriteLine(i);
-            }
+            Console.WriteLine("Bem vinda, Valkiria!\n");
+            var opcao = "s";
+            var nome = "";
+            var matricula = "";
+            var resultado = "";
             
-            int[] itens = new int[]{1,2,3,4,5,6,7,8,9,10};
-            foreach(int item in itens)
+            List<dynamic> alunos = new List<dynamic>();
+            while(opcao.ToLower() == "s")
             {
-                Console.WriteLine(item);
+                Console.WriteLine("Digite o nome do aluno:");
+                nome = Console.ReadLine();
+                Console.WriteLine("Digite a matrícula do aluno:");
+                matricula = Console.ReadLine();
+                Console.WriteLine("Digite as notas do aluno:");
+                double[] notas = new double[3];
+                double soma = 0;
+                double media = 0;
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.WriteLine($"{i + 1}ª nota:");
+                    notas[i] = Convert.ToDouble(Console.ReadLine());
+                    soma += notas[i];
+                }
+                media = soma/notas.Length;
+                if(media >= 7)
+                {
+                    resultado = "Aprovado";
+                }
+                else
+                {
+                    resultado = "Reprovado";
+                }
+                alunos.Add(new{
+                    Nome = nome,
+                    Matricula = matricula,
+                    Notas = notas,
+                    Media = media,
+                    Situacao = resultado
+                });
+                
+                Console.Clear();
+                Console.WriteLine("Cadastrar outro aluno? s/n");
+                opcao = Console.ReadLine();
             }
-            
-            return;
-            */
-
-            while(true)
+            Console.Clear();
+            foreach(var aluno in alunos)
             {
-                Console.WriteLine("Digite\n1 - para sair\n0 - para continuar");
-                int sair = Convert.ToInt32(Console.ReadLine());
-                if(sair == 1) break;
-                else if(sair == 2) continue;
-
-                Console.WriteLine("Opa passou por aqui!");
+                Console.WriteLine("────────────────────────────────");
+                Console.WriteLine($"Nome: {aluno.Nome} - Matrícula: {aluno.Matricula}");
+                Console.WriteLine("────────────────────────────────");
+                Console.WriteLine($"Notas:");
+                int n = 1;
+                foreach(double nota in aluno.Notas)
+                {
+                    Console.WriteLine($"{n}ª nota: {nota}");
+                    n += 1;
+                }
+                Console.WriteLine($"Média: {Math.Round(aluno.Media,1)} - Situação: {aluno.Situacao}");
             }
-                      
-            // INTRODUÇÃO A VARIÁVEIS E DECISÕES:
-            /**
-            Console.WriteLine("Digite o primeiro número:");
-            var numeroUm = 11;//Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Digite o segundo número:");
-            int numeroDois = 20;//Convert.ToInt32(Console.ReadLine());
-
-            var soma = numeroUm * numeroDois;
-
-            //Console.WriteLine($"Qual é o resultado da soma dos números {numeroUm} + {numeroDois} ?");
-            Console.WriteLine("Digite o número premiado?");
-            int resultado = 20;//Convert.ToInt32(Console.ReadLine());
-
-            if(soma == resultado || resultado == 1 || resultado == 10 || (resultado >= 100 && resultado <= 200))
-            {
-                Console.WriteLine($"Parabéns você acertou o resultado: {soma}.");
-            }
-            else if (resultado == 20)
-            {
-                Console.WriteLine($"Você acertou a opção extraordinária, incrível!");
-            }
-            else
-            {
-                Console.WriteLine($"Você errou, o resultado certo é {soma}, tente novamente!");
-            }
-            */
+            Console.WriteLine("────────────────────────────────");
         }
     }
 }
